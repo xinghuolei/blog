@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>Testing</title>
+</head>
+<body>
+  <h2>Video Test</h2>
+  <div id='videos'>
+    <video id='localVideo' autoplay muted></video>
+  </div>
+  <input type="button" value="Make a toast" onClick="showAndroidToast('Hello There')" />
+  
+  <script type="text/javascript">
+ 
+ function showAndroidToast(msg) {
+    Android.showToast(msg);
+ }
+ 
+ var constraints = {video: true, audio: true};
+ var localStream = null;
+ function init() {
+    console.log('Getting user media with constraints', constraints);
+    navigator.webkitGetUserMedia(constraints, handleUserMediaSuccess, handleUserMediaError);
+ };
+ function handleUserMediaSuccess(stream) {
+    console.log('[+] Successfully got local video stream!');
+    attachMediaStream = function(element, stream) {
+          element.src = window.webkitURL.createObjectURL(stream);
+    };
+    attachMediaStream(document.getElementById("localVideo"), stream);
+ };
+ function handleUserMediaError(error) {
+    alert('[!] getUserMedia error: ', error);
+ };
+ 
+ window.onload = function() {
+    init();
+ };
+ </script>
+</body>
+</html>
