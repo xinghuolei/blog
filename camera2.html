@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">  
 <head>  
     <title>HTML5 GetUserMedia Demo</title>  
-	 <meta charset="utf-8">
+	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />  
 </head>  
 <body>  
@@ -111,7 +111,9 @@
         function getVedio() {  
             drawVideoAtCanvas(video, context2);  
         }  
-  
+	window.onerror = function(sMessage,sUrl,sLine){
+		alert(sMessage+","+sUrl+","+sLine);
+	}
     </script>  
 </body>  
 </html>  
