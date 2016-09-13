@@ -55,17 +55,11 @@
         }  
   
         function successFunc(stream) {  
+			alert("success");
                 video.src = window.URL && window.URL.createObjectURL(stream) || stream;  
   
             //video.play();  
   
-            // 音频  
-            audio = new Audio();  
-            audioType = getAudioType(audio);  
-            if (audioType) {  
-                audio.src = 'polaroid.' + audioType;  
-                audio.play();  
-            }  
         }  
         function errorFunc(e) {  
             alert('2Error！'+ e.name);  
