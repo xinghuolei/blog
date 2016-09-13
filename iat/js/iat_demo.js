@@ -105,3 +105,7 @@ function cancel()
 	session.cancel();
 }
 
+window.onerror = function(){
+	console.log("error happend");
+}
+
