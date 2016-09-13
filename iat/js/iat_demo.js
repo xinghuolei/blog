@@ -106,6 +106,6 @@ function cancel()
 }
 
 window.onerror = function(sMessage,sUrl,sLine){
-	alert(sMessage,sUrl,sLine);
+	alert(sMessage+sUrl+sLine);
 }
 
