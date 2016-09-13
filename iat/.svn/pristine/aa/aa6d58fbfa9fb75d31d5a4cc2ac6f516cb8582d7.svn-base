@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+    <title>iFlytek Web Api</title>
+    <meta http-equiv="keywords" content="free mobile website templates, free mobile website template, free iphone template, free android template, free high end touch mobile templates, free high end touch mobile template" />
+    <meta http-equiv="description" content="Get free mobile website templates for Iphone , Android and High end touch mobile devices" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="header">
+        <div class="nav">
+        	<ul>
+                <li><a href="/iat">IAT</a></li>
+            </ul>
+        </div>
+        <div class="logo"><a href="index.html"><img src="images/logo.png" alt="Company Logo - voicecloud.cn" /></a></div>
+    </div>
+    <div class="clear"></div>
+    <h2 id='iat_result'>语音听写</h2>
+	<p><div class="right"><a href="#"></a></div><div class="clear"></div>
+    <p>* 请确认麦克风可以正常使用 <div class="right"><a href="#"></a></div><div class="clear"></div>
+	<p>* 请保持网络接入畅通、稳定 <div class="right"><a href="#"></a></div><div class="clear"></div>
+	<p>* 在安静环境下使用效果更佳 <div class="right"><a href="#"></a></div><div class="clear"></div>
+	<p>* 建议在Chrome、Firefox、Opera、新版UC浏览器上使用 <div class="right"><a href="#"></a></div><div class="clear"></div>
+	<div style="position:relative">
+		<!--[if IE]>
+		<div style="width:255px; margin:auto;">
+			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+					id="iFlyFex" width="214" height="137">
+				<param name="movie" value="recorder.swf" />
+				<param name="quality" value="high" />
+				<param name="wmode" value="transparent">
+				<param name="allowScriptAccess" value="sameDomain">
+				<embed src="recorder.swf" quality="high" width="214" height="137"  bgcolor="#ffffff"
+					   type="application/x-shockwave-flash" name="iFlyFex" />
+			</object>
+		</div>
+		<![endif]-->
+		<div id='a' onclick="play()"> </div>
+		<!--p>
+			<label>请选择一个文件：</label>
+			<input type="file" id="file" />
+			<input type="button" value="读取音频数据" onclick="play()" />
+		</p-->
+	</div>
+	<!--script type="text/javascript" src="/websocket/websocket.js"></script-->
+	<script type="text/javascript" src='./js/jquery-2.1.1.min.js'></script>
+	<script type="text/javascript" src='./js/jquery.md5.js'></script>
+	<script type="text/javascript" src='./js/zepto.min.js'></script>
+	<script type="text/javascript" src='./js/jwav.min.js'></script>
+	<script type="text/javascript" src='./js/fingerprint.js'></script>
+	<script type="text/javascript" src="./js/iat.min.js"></script>
+	<script type="text/javascript" src="./js/iat_demo.js"></script>
+</body>
+</html>
