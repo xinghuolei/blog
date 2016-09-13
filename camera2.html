@@ -78,6 +78,7 @@
           
         // 将视频帧绘制到Canvas对象上,Canvas每60ms切换帧，形成肉眼视频效果  
         function drawVideoAtCanvas(video,context) {  
+			alert("run");
             window.setInterval(function () {  
                 context.drawImage(video, 0, 0,90,120);  
             }, 60);  
