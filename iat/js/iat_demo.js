@@ -105,7 +105,5 @@ function cancel()
 	session.cancel();
 }
 
-window.onerror = function(sMessage,sUrl,sLine){
-	alert(sMessage+sUrl+sLine);
-}
+
 
