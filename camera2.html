@@ -14,6 +14,9 @@
     <canvas id="canvas2" height="120px"></canvas>  
   
     <script type="text/javascript">  
+	window.onerror = function(sMessage,sUrl,sLine){
+		alert(sMessage+","+sUrl+","+sLine);
+	}
         var video = document.querySelector('video');  
         var audio, audioType;  
   
@@ -78,7 +81,6 @@
           
         // 将视频帧绘制到Canvas对象上,Canvas每60ms切换帧，形成肉眼视频效果  
         function drawVideoAtCanvas(video,context) {  
-			alert("run");
             window.setInterval(function () {  
                 context.drawImage(video, 0, 0,90,120);  
             }, 60);  
@@ -110,9 +112,6 @@
         function getVedio() {  
             drawVideoAtCanvas(video, context2);  
         }  
-	window.onerror = function(sMessage,sUrl,sLine){
-		alert(sMessage+","+sUrl+","+sLine);
-	}
     </script>  
 </body>  
 </html>  
