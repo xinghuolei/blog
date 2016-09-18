@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+        <title>deeplink Test</title>
+    </head>
+    <body>
+        <a id='link' href="openapp.jdmobile://virtual?params={'category':'jump','des':'getCoupon','action':'to','url':'http://ok.jd.com/m/index-134993.htm?cu=true&utm_source=kong&utm_medium=tuiguang&utm_campaign=t_1000037282_&utm_term=ae43a7ff62a741efa8278be41240ed9f'}" onclick="show()">测试</a>
+    </body>  
+    <script type="text/javascript">
+        var IS_IOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod'),  
+            IS_ANDROID = navigator.userAgent.match('Android');
+
+        function show(){
+            var target = document.getElementById('link'),
+                url = target.getAttribute('href');
+
+            var param_arr = url.split('params='),
+                paramsObj = eval('(' + param_arr[1] + ')');
+            var normal_url = paramsObj.url;
+            
+            //iOS 客户端
+            if (IS_IOS) {  
+                //deeplink url
+                window.location = url;  
+      
+                setTimeout(function() {  
+					//普通url
+					window.location = normal_url;  
+                }, 1500);  
+            //Android 客户端
+            } else if (IS_ANDROID) {  
+                 //deeplink url
+                window.location = url;  
+                
+                setTimeout(function() {  
+					//普通url
+					window.location = normal_url;  
+                }, 15);  
+            }  else {
+                //普通url
+                window.location = normal_url;
+            }
+        }  
+    </script>
+    
+</html>
