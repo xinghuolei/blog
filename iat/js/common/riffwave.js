@@ -1,4 +1,4 @@
-/* 
+/*
  * RIFFWAVE.js v0.03 - Audio encoder for HTML5 <audio> elements.
  * Copyleft 2011 by Pedro Ladaria <pedro.ladaria at Gmail dot com>
  *
@@ -13,7 +13,7 @@
  * Notes:
  *
  * 8 bit data is unsigned: 0..255
- * 16 bit data is signed: âˆ?32,768..32,767
+ * 16 bit data is signed: ï¿½?32,768..32,767
  *
  */
 
@@ -117,7 +117,7 @@ var RIFFWAVE = function(data) {
             u32ToArray(this.header.sampleRate),
             u32ToArray(this.header.byteRate),
             u16ToArray(this.header.blockAlign),
-            u16ToArray(this.header.bitsPerSample),    
+            u16ToArray(this.header.bitsPerSample),
             this.header.subChunk2Id,
             u32ToArray(this.header.subChunk2Size),
             (this.header.bitsPerSample == 16) ? split16bitArray(this.data) : this.data
