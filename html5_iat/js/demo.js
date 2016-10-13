@@ -7,7 +7,7 @@ var tip = document.getElementById('a');
 var oldText = tip.innerHTML;
 /* 标识麦克风按钮状态，按下状态值为true，否则为false */
 var mic_pressed = false;
-
+var isSupport = true;
 
 /***********************************************local Variables**********************************************************/
 
@@ -52,9 +52,15 @@ var session = new IFlyIatSession({
         }
     }
 });
-
+(function(){
+   if(session.isSupported()){
+       tip.innerHTML = "当前浏览器不支持！";
+       isSupport = false;
+   }
+})();
 
 function play() {
+    if(!isSupport) return;
     if (!mic_pressed) {
         var ssb_param = {
             "grammar_list": null,
