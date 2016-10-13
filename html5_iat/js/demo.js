@@ -53,7 +53,7 @@ var session = new IFlyIatSession({
     }
 });
 (function(){
-   if(session.isSupported()){
+   if(session.isSupport()){
        tip.innerHTML = "当前浏览器不支持！";
        isSupport = false;
    }
