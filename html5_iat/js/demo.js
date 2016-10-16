@@ -4,10 +4,51 @@
 var iflytek = (function(document){
     var iat_result = document.getElementById('iat_result');
     var tip = document.getElementById('a');
+    var volumeTip = document.getElementById('volume');
+    var volumeWrapper = document.getElementById('canvas_wrapper');
     var oldText = tip.innerHTML;
     /* 标识麦克风按钮状态，按下状态值为true，否则为false */
     var mic_pressed = false;
-    var isVolumnLow = false;
+    var volumeEvent = (function () {
+        var lastVolume = 0;
+        var eventId = 0;
+        var canvas = volumeTip,
+            cwidth = canvas.width,
+            cheight = canvas.height;
+        var ctx = canvas.getContext('2d');
+        var gradient = ctx.createLinearGradient(0, 0, cwidth, 0);
+        var animationId;
+        gradient.addColorStop(1, 'red');
+        gradient.addColorStop(0.8, 'yellow');
+        gradient.addColorStop(0.5, '#9ec5f5');
+        gradient.addColorStop(0, '#c1f1c5');
+
+        volumeWrapper.style.display = "none";
+
+        var listen = function(volume){
+            lastVolume = volume;
+        };
+        var draw = function(){
+            cancelAnimationFrame(animationId);
+            ctx.clearRect(0, 0, cwidth, cheight);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1 + lastVolume*cwidth/30, cheight);
+            animationId = requestAnimationFrame(draw);
+        };
+        var start = function(){
+            animationId = requestAnimationFrame(draw);
+            volumeWrapper.style.display = "block";
+        };
+        var stop = function(){
+            clearInterval(eventId);
+            volumeWrapper.style.display = "none";
+        };
+        return {
+            "listen":listen,
+            "start":start,
+            "stop":stop
+        };
+    })();
     /***********************************************local Variables**********************************************************/
 
     /**
@@ -27,19 +68,21 @@ var iflytek = (function(document){
                     iat_result.innerHTML = 'error code : ' + err + ", error description : " + result;
                 }
                 mic_pressed = false;
+                volumeEvent.stop();
             },
-            "onVolume": function () {
-                //待实现
+            "onVolume": function (volume) {
+                volumeEvent.listen(volume);
             },
             "onError":function(){
-
+                mic_pressed = false;
+                volumeEvent.stop();
             },
             "onProcess":function(status){
                 switch (status){
                     case 'onStart':
                         tip.innerHTML = "服务初始化...";
                         break;
-                    case 'normalVolumn':
+                    case 'normalVolume':
                     case 'started':
                         tip.innerHTML = "倾听中...";
                         break;
@@ -49,7 +92,7 @@ var iflytek = (function(document){
                     case 'onEnd':
                         tip.innerHTML = oldText;
                         break;
-                    case 'lowVolumn':
+                    case 'lowVolume':
                         tip.innerHTML = "倾听中...(声音过小)";
                         break;
                     default:
@@ -74,6 +117,7 @@ var iflytek = (function(document){
             /* 调用开始录音接口，通过function(volume)和function(err, obj)回调音量和识别结果 */
             session.start(ssb_param);
             mic_pressed = true;
+            volumeEvent.start();
         }
         else {
             //停止麦克风录音，仍会返回已传录音的识别结果.

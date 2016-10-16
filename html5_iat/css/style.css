@@ -136,12 +136,19 @@ p a:hover{
 .clear{
 	clear:both;
 	}
+#canvas_wrapper{
+	transition:all 0.5s ease;
+	margin:auto;
+	width:450px;
+	max-width:96%;
+	padding-left:20px;
+}
 #a {
 	display: flex;
 	align-items: center;
 	justify-content:center;
 	background:rgb(60, 135, 235);
-	border-radius: 1.5em;
+	border-radius: 20px;
 	height:80px;
 	width:450px;
 	margin:auto;
