@@ -137,7 +137,7 @@ p a:hover{
 	clear:both;
 	}
 #canvas_wrapper{
-	transition:all 0.5s ease;
+	transition:all 0.2s ease;
 	margin:auto;
 	width:450px;
 	max-width:96%;
