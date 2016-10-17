@@ -42,8 +42,11 @@ var IFlyIatSession = (function (window, navigator) {
     var rec_state = "";
     var audioStream = null;
     var audioCtx = null;
+    var audioNode = {
+        "source":null,
+        "scriptNode":null
+    }
     var serverParam = "";
-    var analyser = null;
     var env = {
         "browserId":null,
         "bufferSize":null,
@@ -543,28 +546,32 @@ var IFlyIatSession = (function (window, navigator) {
     })();
     var gotStream = function (stream) {
         audioStream = stream;
-        var inputPoint = audioCtx.createGain();//gain节点 未使用 可删除
-        var realAudioInput = audioCtx.createMediaStreamSource(stream);
-        var audioInput = realAudioInput;
-        audioInput.connect(inputPoint);
+        audioNode.source = audioCtx.createMediaStreamSource(stream);
+        audioNode.scriptNode = audioCtx.createScriptProcessor(env.bufferSize, 1, 1);
+        recorderWorker.init(audioCtx.sampleRate);
 
-        (function (source) {
-            var context = source.context;
-            var node = context.createScriptProcessor(env.bufferSize, 1, 1);
-            source.connect(node);
-            node.connect(context.destination);
-            recorderWorker.init(context.sampleRate);
-            node.onaudioprocess = function (e) {
-                if (!recording) return;
-                recorderWorker.sendData(e.inputBuffer.getChannelData(0));
-            }
-        })(inputPoint);
+        audioNode.scriptNode.onaudioprocess = function (e) {
+            if (!recording) return;
+            console.log(e.inputBuffer.getChannelData(0));
+            recorderWorker.sendData(e.inputBuffer.getChannelData(0));
+        };
+        audioNode.source.connect(audioNode.scriptNode);
+        audioNode.scriptNode.connect(audioCtx.destination);
         iatEvent.startRecord();
     };
+
+    var initMedia = function () {
+        navigator.getUserMedia({audio: true}, gotStream, function (e) {
+            alert("getUserMedia error " + e.name);
+        });
+        if(audioCtx == null){
+            audioCtx = new window.AudioContext();
+        }
+    };
     var volumeCheck = (function(){
-        var lowVolumeLimit = 5;//音量过小
+        var lowVolumeLimit = 8;//音量过小
         var interval = 500;//音量判定间隔
-        var maxTooLow = 8;//录音开始多少判定点提示音量过小
+        var maxTooLow = 5;//录音开始多少判定点提示音量过小
         var maxVolume = 0;
         var checkEventId = 0;
 
@@ -611,12 +618,6 @@ var IFlyIatSession = (function (window, navigator) {
             "listen":listen
         }
     })();
-    var initMedia = function () {
-        navigator.getUserMedia({audio: true}, gotStream, function (e) {
-            alert("getUserMedia error " + e.name);
-        });
-        audioCtx = new window.AudioContext();
-    };
     return function (setting) {
         callback = utils.extend(callback,setting.callback);
         settings = utils.extend(settings,setting.params);
@@ -671,9 +672,9 @@ var IFlyIatSession = (function (window, navigator) {
                 }
                 audioStream = null;
             }
-			if (audioCtx != null) {
-                audioCtx.close();
-                audioCtx = null;
+            if (audioCtx != null) {
+                audioNode.source.disconnect();
+                audioNode.scriptNode.disconnect();
             }
         }
     }
