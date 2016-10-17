@@ -75,15 +75,15 @@ var getVolume = function(data){
 		}
 		// 采样平均值
 		var avg = 0;
-		data.forEach(function(v){
-			avg += v;
-		});
+		var i;
+		for(i=0;i<data.length;i++){
+			avg += data[i];
+		}
 		avg /= data.length;
 		var energy = 0;
-
-		data.forEach(function (v) {
-			energy += parseInt(Math.pow(v-avg,2))>>9;
-		});
+		for(i=0;i<data.length;i++){
+			energy += parseInt(Math.pow(data[i]-avg,2))>>9;
+		}
 		energy /= data.length;
 		return parseInt(energy);
 	};
