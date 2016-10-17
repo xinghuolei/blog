@@ -5,6 +5,7 @@ var iflytek = (function(document){
     var iat_result = document.getElementById('iat_result');
     var tip = document.getElementById('a');
     var volumeTip = document.getElementById('volume');
+    volumeTip.width = parseFloat(window.getComputedStyle(tip, null).width) -100;
     var volumeWrapper = document.getElementById('canvas_wrapper');
     var oldText = tip.innerHTML;
     /* 标识麦克风按钮状态，按下状态值为true，否则为false */
