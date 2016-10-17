@@ -670,14 +670,8 @@ var IFlyIatSession = (function (window, navigator) {
                     tracks[i].stop();
                 }
                 audioStream = null;
-            }
-//            if (audioCtx != null) {
-//				if(audioCtx.close){
-    //                audioCtx.close();
-  //              }
                 audioCtx = null;
-     //       }
-
+            }
         }
     }
 })(window, navigator);
