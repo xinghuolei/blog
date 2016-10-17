@@ -672,7 +672,9 @@ var IFlyIatSession = (function (window, navigator) {
                 audioStream = null;
             }
             if (audioCtx != null) {
-                audioCtx.close();
+				if(audioCtx.close){
+                    audioCtx.close();
+                }
                 audioCtx = null;
             }
 
