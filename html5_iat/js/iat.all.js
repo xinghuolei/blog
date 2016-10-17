@@ -666,9 +666,10 @@ var IFlyIatSession = (function (window, navigator) {
 
         this.kill = function () {
             if (audioStream != null) {
-                audioStream.getAudioTracks().forEach(function (track) {
-                    track.stop();
-                });
+				var tracks = audioStream.getAudioTracks();
+                for(var i=0 ;i<tracks.length;i++){
+                    tracks[i].stop();
+                }
                 audioStream = null;
             }
             if (audioCtx != null) {
