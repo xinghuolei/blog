@@ -29,7 +29,9 @@ var iflytek = (function(document){
             lastVolume = volume;
         };
         var draw = function(){
-            cancelAnimationFrame(animationId);
+            if(volumeWrapper.style.display == "none"){
+                cancelAnimationFrame(animationId);
+            }
             ctx.clearRect(0, 0, cwidth, cheight);
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, 1 + lastVolume*cwidth/30, cheight);
